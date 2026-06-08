@@ -3,12 +3,11 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { nav, industries, type Service } from "@/lib/site";
+import { nav, industries, serviceGroups } from "@/lib/site";
 import Logo from "./Logo";
 import Icon from "./Icon";
 import CountrySelector from "./CountrySelector";
 import ThemeToggle from "./ThemeToggle";
-import { useRegion } from "./RegionProvider";
 
 type DropItem = { label: string; href: string; icon: string };
 type Menu = { align: "left" | "right"; cols: 1 | 2; items: DropItem[] };
@@ -48,22 +47,21 @@ const staticMenus: Record<string, Menu> = {
   },
 };
 
-function servicesMenu(services: Service[]): Menu {
+function servicesMenu(): Menu {
   return {
     align: "left",
-    cols: 2,
-    items: services.map((s) => ({
-      label: s.title,
-      href: s.href ?? `/services#${s.slug}`,
-      icon: s.icon,
+    cols: 1,
+    items: serviceGroups.map((g) => ({
+      label: g.title,
+      href: g.href,
+      icon: g.icon,
     })),
   };
 }
 
 export default function Navbar() {
   const pathname = usePathname();
-  const { services } = useRegion();
-  const menus: Record<string, Menu> = { ...staticMenus, services: servicesMenu(services) };
+  const menus: Record<string, Menu> = { ...staticMenus, services: servicesMenu() };
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [sub, setSub] = useState<string | null>(null);
@@ -103,7 +101,7 @@ export default function Navbar() {
       }`}
     >
       <nav className="container-x flex h-20 items-center justify-between gap-3">
-        <Logo src="/logo-animation.gif" imgClassName="h-14 w-auto sm:h-[4.25rem]" />
+        <Logo src="/logo-animation.gif" imgClassName="h-16 w-auto sm:h-[4.5rem]" />
 
         <div className="flex items-center gap-2 sm:gap-3">
           <Link href="/contact#book" className="btn-primary text-[14px] sm:text-[15px]">
