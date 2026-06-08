@@ -20,12 +20,12 @@ const stats = [
 
 export default function Hero() {
   return (
-    <section className="relative flex min-h-[calc(100svh-80px)] flex-col overflow-hidden bg-hero-gradient pt-20">
+    <section className="relative overflow-hidden bg-hero-gradient pt-28 pb-14 lg:pt-32 lg:pb-20">
       <Hero3DBackground className="pointer-events-none absolute inset-0 h-full w-full" />
       {/* single brand-blue ambient glow (the one permitted slow drift) */}
       <div className="pointer-events-none absolute -right-40 top-10 h-[34rem] w-[34rem] animate-aurora rounded-full bg-[radial-gradient(circle,rgba(46,110,156,0.12),transparent_64%)] blur-2xl" />
 
-      <div className="container-x relative grid flex-1 items-center gap-12 py-8 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14 lg:py-10">
+      <div className="container-x relative grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
         <div>
           <motion.span
             initial={{ opacity: 0, y: 14 }}
