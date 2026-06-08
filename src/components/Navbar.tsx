@@ -63,15 +63,7 @@ export default function Navbar() {
   const pathname = usePathname();
   const menus: Record<string, Menu> = { ...staticMenus, services: servicesMenu() };
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const [sub, setSub] = useState<string | null>(null);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 16);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   useEffect(() => setOpen(false), [pathname]);
 
@@ -93,17 +85,11 @@ export default function Navbar() {
     });
 
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "border-b border-slate-200/70 bg-white/85 backdrop-blur-xl shadow-[0_10px_40px_-22px_rgba(27,36,48,0.35)] dark:border-white/10 dark:bg-night-base/80 dark:shadow-none"
-          : "bg-transparent"
-      }`}
-    >
-      <nav className="container-x flex h-20 items-center justify-between gap-3">
-        <Logo imgClassName="h-16 w-auto sm:h-[4.5rem]" />
+    <header className="pointer-events-none fixed inset-x-0 top-0 z-50">
+      <nav className="flex h-20 items-center justify-between px-5 sm:px-8 lg:px-12">
+        <Logo className="pointer-events-auto" imgClassName="h-16 w-auto sm:h-20" />
 
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="pointer-events-auto flex items-center gap-2 sm:gap-3">
           <Link href="/contact#book" className="btn-primary text-[14px] sm:text-[15px]">
             Book a Call
             <Icon name="arrow" className="h-4 w-4" />
