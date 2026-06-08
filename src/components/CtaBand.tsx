@@ -25,7 +25,7 @@ export default function CtaBand({
       <div className="container-x relative z-10">
         <FadeUp className="mx-auto max-w-2xl text-center">
           <div className="flex justify-center">
-            <Logo markClassName="h-14 w-auto sm:h-16" nameClassName="text-2xl sm:text-3xl" tagClassName="text-xs" />
+            <Logo imgClassName="h-24 w-auto sm:h-28" />
           </div>
           <h2 className="mt-4 font-display text-3xl font-extrabold text-charcoal dark:text-[#F4F6FB] text-balance sm:text-[2.5rem] sm:leading-[1.1]">
             {title}
