@@ -5,7 +5,7 @@ export const site = {
   description:
     "InfiBooks is a premium global CFO advisory and AI finance transformation brand - bookkeeping, Virtual CFO, FP&A, MIS dashboards, financial modeling, and AI-powered finance automation for founders and growing businesses worldwide.",
   url: "https://infibooks.ae",
-  email: "infiaiedge@gmail.com",
+  email: "info@infibooks.com",
   phone: "+971 50 000 0000",
   phoneHref: "tel:+97150000000",
   whatsapp: "971500000000",
