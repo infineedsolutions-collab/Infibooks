@@ -101,7 +101,7 @@ export default function Navbar() {
       }`}
     >
       <nav className="container-x flex h-20 items-center justify-between gap-3">
-        <Logo src="/logo-animation.gif" imgClassName="h-16 w-auto sm:h-[4.5rem]" />
+        <Logo imgClassName="h-16 w-auto sm:h-[4.5rem]" />
 
         <div className="flex items-center gap-2 sm:gap-3">
           <Link href="/contact#book" className="btn-primary text-[14px] sm:text-[15px]">
