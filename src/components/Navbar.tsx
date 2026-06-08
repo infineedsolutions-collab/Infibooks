@@ -111,12 +111,12 @@ export default function Navbar() {
           : "bg-transparent"
       }`}
     >
-      <nav className="container-x relative flex h-20 items-center justify-between gap-4">
+      <nav className="container-x flex h-20 items-center gap-3">
         <div className="flex shrink-0 items-center">
           <Logo src="/logo-animation.gif" imgClassName="h-12 w-auto sm:h-14" />
         </div>
 
-        <ul className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 lg:flex">
+        <ul className="hidden flex-1 items-center justify-center gap-0.5 lg:flex">
           {nav.map((item) => {
             const menu = item.menu ? menus[item.menu] : undefined;
             const active = isActive(item.href) || isMenuActive(menu);
@@ -124,7 +124,7 @@ export default function Navbar() {
               <li key={item.href} className="group relative">
                 <Link
                   href={item.href}
-                  className={`flex items-center gap-1 whitespace-nowrap rounded-full px-3.5 py-2 text-[15px] font-semibold transition active:scale-95 ${
+                  className={`flex items-center gap-1 whitespace-nowrap rounded-full px-3 py-2 text-[14px] font-semibold transition active:scale-95 ${
                     active
                       ? "bg-brand-gradient text-white shadow-[0_6px_16px_-6px_rgba(46,110,156,0.6)]"
                       : "text-slate-700 hover:bg-slate-100 hover:text-charcoal dark:text-[#A6B0C3] dark:hover:bg-white/5 dark:hover:text-[#F4F6FB]"
