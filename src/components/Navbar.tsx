@@ -60,21 +60,13 @@ function servicesMenu(services: Service[]): Menu {
   };
 }
 
-function Chevron() {
-  return (
-    <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 transition-transform duration-200 group-hover:rotate-180" fill="none" stroke="currentColor" strokeWidth={2.2} aria-hidden>
-      <path d="m6 9 6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-
 export default function Navbar() {
   const pathname = usePathname();
   const { services } = useRegion();
   const menus: Record<string, Menu> = { ...staticMenus, services: servicesMenu(services) };
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [mobileSub, setMobileSub] = useState<string | null>(null);
+  const [sub, setSub] = useState<string | null>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
@@ -95,7 +87,6 @@ export default function Navbar() {
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname.startsWith(href);
 
-  // a parent item is active when the current page is one of its dropdown links
   const isMenuActive = (m?: Menu) =>
     !!m &&
     m.items.some((it) => {
@@ -111,72 +102,18 @@ export default function Navbar() {
           : "bg-transparent"
       }`}
     >
-      <nav className="container-x flex h-20 items-center gap-3">
-        <div className="flex shrink-0 items-center">
-          <Logo src="/logo-animation.gif" imgClassName="h-12 w-auto sm:h-14" />
-        </div>
+      <nav className="container-x flex h-20 items-center justify-between gap-3">
+        <Logo src="/logo-animation.gif" imgClassName="h-12 w-auto sm:h-14" />
 
-        <ul className="hidden flex-1 items-center justify-center gap-0.5 lg:flex">
-          {nav.map((item) => {
-            const menu = item.menu ? menus[item.menu] : undefined;
-            const active = isActive(item.href) || isMenuActive(menu);
-            return (
-              <li key={item.href} className="group relative">
-                <Link
-                  href={item.href}
-                  className={`flex items-center gap-1 whitespace-nowrap rounded-full px-3 py-2 text-[14px] font-semibold transition active:scale-95 ${
-                    active
-                      ? "bg-brand-gradient text-white shadow-[0_6px_16px_-6px_rgba(46,110,156,0.6)]"
-                      : "text-slate-700 hover:bg-slate-100 hover:text-charcoal dark:text-[#A6B0C3] dark:hover:bg-white/5 dark:hover:text-[#F4F6FB]"
-                  }`}
-                >
-                  {item.label}
-                  {menu && <Chevron />}
-                </Link>
-
-                {menu && (
-                  <div
-                    className={`invisible absolute top-full ${menu.align === "right" ? "right-0" : "left-0"} z-50 pt-3 opacity-0 transition-all duration-200 group-hover:visible group-hover:opacity-100`}
-                  >
-                    <div
-                      className={`rounded-2xl border border-slate-200/70 bg-white p-2 shadow-soft dark:border-white/10 dark:bg-night-surface ${
-                        menu.cols === 2 ? "grid w-[30rem] grid-cols-2 gap-1" : "w-64"
-                      }`}
-                    >
-                      {menu.items.map((it) => (
-                        <Link
-                          key={it.href}
-                          href={it.href}
-                          className="flex min-h-[3.25rem] items-center gap-3 rounded-xl px-3 py-2 transition-colors hover:bg-brand-50 dark:hover:bg-white/5"
-                        >
-                          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600 dark:bg-accent/10 dark:text-accent-hover">
-                            <Icon name={it.icon} className="h-4 w-4" />
-                          </span>
-                          <span className="text-sm font-semibold leading-snug text-charcoal dark:text-[#F4F6FB]">{it.label}</span>
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </li>
-            );
-          })}
-        </ul>
-
-        <div className="flex shrink-0 items-center justify-end gap-3">
-          <ThemeToggle className="hidden lg:flex" />
-          <CountrySelector className="hidden lg:block" />
-          <Link href="/contact#book" className="hidden text-[15px] lg:inline-flex btn-primary">
-            Book a Strategy Call
+        <div className="flex items-center gap-2 sm:gap-3">
+          <Link href="/contact#book" className="btn-primary text-[14px] sm:text-[15px]">
+            Book a Call
             <Icon name="arrow" className="h-4 w-4" />
           </Link>
-
-          <ThemeToggle className="lg:hidden" />
-          <CountrySelector className="lg:hidden" />
           <button
             type="button"
             onClick={() => setOpen((v) => !v)}
-            className="flex h-11 w-11 items-center justify-center rounded-xl border border-slate-300 text-charcoal dark:border-white/15 dark:text-[#F4F6FB] lg:hidden"
+            className="flex h-11 w-11 items-center justify-center rounded-xl border border-slate-300 text-charcoal transition hover:bg-slate-50 active:scale-95 dark:border-white/15 dark:text-[#F4F6FB] dark:hover:bg-white/5"
             aria-label="Toggle menu"
             aria-expanded={open}
           >
@@ -189,69 +126,81 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Mobile menu */}
-      <div className={open ? "pointer-events-auto lg:hidden" : "pointer-events-none lg:hidden"}>
+      {/* Slide-down menu (all screen sizes) */}
+      <div className={open ? "pointer-events-auto" : "pointer-events-none"}>
         <div
-          className={`fixed inset-0 top-20 z-40 bg-charcoal/20 backdrop-blur-sm transition-opacity ${open ? "opacity-100" : "opacity-0"}`}
+          className={`fixed inset-0 top-20 z-40 bg-charcoal/25 backdrop-blur-sm transition-opacity duration-300 ${
+            open ? "opacity-100" : "opacity-0"
+          }`}
           onClick={() => setOpen(false)}
         />
         <div
-          className={`fixed inset-x-0 top-20 z-40 max-h-[calc(100vh-80px)] origin-top overflow-y-auto border-b border-slate-200 bg-white px-5 pb-6 pt-2 shadow-soft transition-all dark:border-white/10 dark:bg-night-surface ${
+          className={`fixed inset-x-0 top-20 z-40 max-h-[calc(100vh-80px)] origin-top overflow-y-auto border-b border-slate-200 bg-white shadow-soft transition-all duration-300 dark:border-white/10 dark:bg-night-surface ${
             open ? "translate-y-0 opacity-100" : "-translate-y-4 opacity-0"
           }`}
         >
-          <ul className="flex flex-col gap-1">
-            {nav.map((item) => {
-              const menu = item.menu ? menus[item.menu] : undefined;
-              const subOpen = mobileSub === item.menu;
-              return (
-                <li key={item.href}>
-                  <div className="flex items-center">
-                    <Link
-                      href={item.href}
-                      className={`flex-1 rounded-xl px-4 py-3 text-base font-medium transition active:scale-[0.98] ${
-                        isActive(item.href)
-                          ? "bg-brand-gradient text-white shadow-[0_6px_16px_-6px_rgba(46,110,156,0.6)]"
-                          : "text-slate-700 hover:bg-slate-50 dark:text-[#A6B0C3] dark:hover:bg-white/5"
-                      }`}
-                    >
-                      {item.label}
-                    </Link>
-                    {menu && (
-                      <button
-                        type="button"
-                        onClick={() => setMobileSub(subOpen ? null : item.menu!)}
-                        aria-label={`Toggle ${item.label} menu`}
-                        className="flex h-10 w-10 items-center justify-center rounded-xl text-slate-500"
+          <div className="container-x py-5">
+            <ul className="mx-auto flex max-w-xl flex-col gap-1">
+              {nav.map((item) => {
+                const menu = item.menu ? menus[item.menu] : undefined;
+                const subOpen = sub === item.menu;
+                const active = isActive(item.href) || isMenuActive(menu);
+                return (
+                  <li key={item.href}>
+                    <div className="flex items-center">
+                      <Link
+                        href={item.href}
+                        className={`flex-1 rounded-xl px-4 py-3 text-base font-semibold transition active:scale-[0.98] ${
+                          active
+                            ? "bg-brand-gradient text-white shadow-[0_6px_16px_-6px_rgba(46,110,156,0.6)]"
+                            : "text-slate-700 hover:bg-slate-50 dark:text-[#A6B0C3] dark:hover:bg-white/5"
+                        }`}
                       >
-                        <svg viewBox="0 0 24 24" className={`h-4 w-4 transition-transform ${subOpen ? "rotate-180" : ""}`} fill="none" stroke="currentColor" strokeWidth={2.2} aria-hidden>
-                          <path d="m6 9 6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                      </button>
-                    )}
-                  </div>
-                  {menu && subOpen && (
-                    <div className="mb-1 ml-3 grid gap-0.5 border-l border-slate-200 pl-3 dark:border-white/10">
-                      {menu.items.map((it) => (
-                        <Link
-                          key={it.href}
-                          href={it.href}
-                          className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-brand-700 dark:text-[#A6B0C3] dark:hover:bg-white/5 dark:hover:text-accent-hover"
+                        {item.label}
+                      </Link>
+                      {menu && (
+                        <button
+                          type="button"
+                          onClick={() => setSub(subOpen ? null : item.menu!)}
+                          aria-label={`Toggle ${item.label} menu`}
+                          className="flex h-10 w-10 items-center justify-center rounded-xl text-slate-500 dark:text-[#A6B0C3]"
                         >
-                          <Icon name={it.icon} className="h-4 w-4 text-brand-500" />
-                          {it.label}
-                        </Link>
-                      ))}
+                          <svg viewBox="0 0 24 24" className={`h-4 w-4 transition-transform ${subOpen ? "rotate-180" : ""}`} fill="none" stroke="currentColor" strokeWidth={2.2} aria-hidden>
+                            <path d="m6 9 6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        </button>
+                      )}
                     </div>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
-          <Link href="/contact#book" className="btn-primary mt-4 w-full">
-            Book a Strategy Call
-            <Icon name="arrow" className="h-4 w-4" />
-          </Link>
+                    {menu && subOpen && (
+                      <div className="mb-1 ml-3 grid gap-0.5 border-l border-slate-200 pl-3 dark:border-white/10 sm:grid-cols-2">
+                        {menu.items.map((it) => (
+                          <Link
+                            key={it.href}
+                            href={it.href}
+                            className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-brand-700 dark:text-[#A6B0C3] dark:hover:bg-white/5 dark:hover:text-accent-hover"
+                          >
+                            <Icon name={it.icon} className="h-4 w-4 text-brand-500" />
+                            {it.label}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+
+            <div className="mx-auto mt-5 flex max-w-xl items-center justify-between gap-3 border-t border-slate-200 pt-5 dark:border-white/10">
+              <div className="flex items-center gap-3">
+                <ThemeToggle />
+                <CountrySelector />
+              </div>
+              <Link href="/contact#book" className="btn-primary">
+                Book a Call
+                <Icon name="arrow" className="h-4 w-4" />
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </header>
