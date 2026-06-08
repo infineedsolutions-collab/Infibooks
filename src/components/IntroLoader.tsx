@@ -44,7 +44,7 @@ export default function IntroLoader() {
 
       <Image
         key={cycle}
-        src="/logo-animation.gif"
+        src="/logo.png"
         alt="Infi Books - Beyond Bookkeeping"
         width={400}
         height={400}

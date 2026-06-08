@@ -202,7 +202,8 @@
       "WebFetch(domain:hashlogics.com)",
       "PowerShell(winget install --id Git.Git -e --accept-package-agreements --accept-source-agreements --silent 2>&1)",
       "WebFetch(domain:infibooks-git-main-infineeds-solutions-s-projects.vercel.app)",
-      "WebFetch(domain:infibooks.vercel.app)"
+      "WebFetch(domain:infibooks.vercel.app)",
+      "PowerShell(Get-ChildItem \"i:\\\\Infibook Dubai\\\\public\" -File | Sort-Object LastWriteTime -Descending | Select-Object -First 10 Name, @{n='KB';e={[math]::Round\\($_.Length/1KB\\)}}, LastWriteTime | Format-Table -AutoSize)"
     ]
   }
 }

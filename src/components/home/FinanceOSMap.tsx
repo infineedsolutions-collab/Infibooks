@@ -73,7 +73,7 @@ export default function FinanceOSMap() {
 
               {/* hub - strongest logo usage, popped forward in 3D */}
               <div className="absolute left-1/2 top-1/2 z-10 flex h-28 w-28 -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center rounded-full border border-slate-200/70 dark:border-white/10 bg-white dark:bg-[#161D30] shadow-soft dark:shadow-none ring-glow [transform:translate(-50%,-50%)_translateZ(55px)]">
-                <Image src="/logo-animation.gif" alt="InfiBooks" width={120} height={120} unoptimized className="h-16 w-auto" />
+                <Image src="/logo.png" alt="InfiBooks" width={120} height={120} className="h-16 w-auto" />
               </div>
               <span className="absolute left-1/2 top-1/2 h-40 w-40 -translate-x-1/2 -translate-y-1/2 animate-spin-slow rounded-full border border-dashed border-brand-300/50" />
 

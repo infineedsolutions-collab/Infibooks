@@ -49,7 +49,7 @@ export default function IntelligenceLayers() {
                     <p className="mt-1 text-sm leading-relaxed text-slate-600 dark:text-[#A6B0C3]">{layer.body}</p>
                   </div>
                   {isLast && (
-                    <Image src="/logo-animation.gif" alt="InfiBooks" width={60} height={60} unoptimized className="hidden h-9 w-auto opacity-80 sm:block" />
+                    <Image src="/logo.png" alt="InfiBooks" width={60} height={60} className="hidden h-9 w-auto opacity-80 sm:block" />
                   )}
                 </motion.div>
               );

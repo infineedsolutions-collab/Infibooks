@@ -59,7 +59,7 @@ export default function TeamPage() {
       <section className="relative overflow-hidden bg-white dark:bg-[#0B0F1A] pt-[calc(80px+2.5rem)]">
         {/* animated logo gif running softly behind the team */}
         <Image
-          src="/logo-animation.gif"
+          src="/logo.png"
           alt=""
           aria-hidden
           width={1000}
