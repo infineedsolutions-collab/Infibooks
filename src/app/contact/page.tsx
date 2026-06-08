@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import PageHero from "@/components/PageHero";
 import ContactForm from "@/components/ContactForm";
+import CalEmbed from "@/components/CalEmbed";
 import Icon from "@/components/Icon";
 import { site } from "@/lib/site";
 
@@ -45,6 +46,24 @@ export default function ContactPage() {
               <p className="mt-1 font-semibold text-midnight-900 dark:text-[#F4F6FB]">{c.value}</p>
             </a>
           ))}
+        </div>
+      </section>
+
+      {/* Book a call */}
+      <section id="book" className="section scroll-mt-24 bg-ivory dark:bg-[#0B0F1A]">
+        <div className="container-x">
+          <div className="mx-auto max-w-2xl text-center">
+            <span className="eyebrow mx-auto">Book a Call</span>
+            <h2 className="mt-4 font-display text-3xl font-extrabold text-charcoal dark:text-[#F4F6FB] sm:text-4xl">
+              Pick a Time for Your Free Strategy Call
+            </h2>
+            <p className="mt-4 text-lg leading-relaxed text-slate-600 dark:text-[#A6B0C3]">
+              Choose a slot that works for you - we&apos;ll meet, understand your finances, and map the right next step.
+            </p>
+          </div>
+          <div className="mx-auto mt-10 max-w-4xl">
+            <CalEmbed />
+          </div>
         </div>
       </section>
 

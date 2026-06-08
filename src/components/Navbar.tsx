@@ -166,7 +166,7 @@ export default function Navbar() {
         <div className="flex flex-1 items-center justify-end gap-3">
           <ThemeToggle className="hidden lg:flex" />
           <CountrySelector className="hidden lg:block" />
-          <Link href="/contact" className="hidden text-[15px] lg:inline-flex btn-primary">
+          <Link href="/contact#book" className="hidden text-[15px] lg:inline-flex btn-primary">
             Book a Strategy Call
             <Icon name="arrow" className="h-4 w-4" />
           </Link>
@@ -248,7 +248,7 @@ export default function Navbar() {
               );
             })}
           </ul>
-          <Link href="/contact" className="btn-primary mt-4 w-full">
+          <Link href="/contact#book" className="btn-primary mt-4 w-full">
             Book a Strategy Call
             <Icon name="arrow" className="h-4 w-4" />
           </Link>

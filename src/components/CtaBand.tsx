@@ -32,7 +32,7 @@ export default function CtaBand({
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-lg text-slate-600 dark:text-[#A6B0C3]">{text}</p>
           <div className="mt-9 flex flex-wrap justify-center gap-3">
-            <Link href="/contact" className="btn-primary glow-border">
+            <Link href="/contact#book" className="btn-primary glow-border">
               {primaryLabel}
               <Icon name="arrow" className="h-4 w-4" />
             </Link>
