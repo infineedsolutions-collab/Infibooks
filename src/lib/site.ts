@@ -435,6 +435,42 @@ export const industries: Industry[] = [
 ];
 
 /* ---------------------------------------------------------------- Automation */
+/** 4 parent service lines, each with its sub-services (shown on the home page). */
+export const serviceGroups = [
+  {
+    title: "Bookkeeping",
+    short: "Accurate, reconciled, audit-ready books and compliance, every month.",
+    icon: "book",
+    href: "/bookkeeping",
+    image: "/covers/bookkeeping.jpg",
+    subs: ["Bookkeeping Services", "Payables Management", "Receivables Management", "Payroll Management", "Taxation Services"],
+  },
+  {
+    title: "CFO Services",
+    short: "Boardroom-level strategy - forecasting, modelling, and fundraising support.",
+    icon: "briefcase",
+    href: "/virtual-cfo",
+    image: "/covers/cfo-advisory.jpg",
+    subs: ["Budgeting & Forecasting", "Cash Flow Management", "Financial Modelling", "Valuation & Investor Readiness", "Pitch Deck & Fundraising"],
+  },
+  {
+    title: "AI Automations",
+    short: "Automated finance workflows and standardised, scalable processes.",
+    icon: "bolt",
+    href: "/finance-automation",
+    image: "/covers/automation.jpg",
+    subs: ["AI Finance Automation", "SOP Implementation"],
+  },
+  {
+    title: "Dashboards",
+    short: "Live MIS & KPI dashboards for real-time, decision-ready visibility.",
+    icon: "grid",
+    href: "/dashboards",
+    image: "/covers/dashboards.jpg",
+    subs: ["MIS & KPI Dashboards"],
+  },
+];
+
 export const automationTools = [
   "QuickBooks", "Xero", "Zoho", "Shopify", "Stripe", "Gusto", "Power BI", "Google Sheets", "n8n", "Make", "AI Agents",
 ];
