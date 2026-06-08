@@ -1,0 +1,310 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #1b2430;
+}
+
+html.dark {
+  --background: #0b0f1a;
+  --foreground: #f4f6fb;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  /* Lenis owns scroll - no native smooth scroll. */
+  -webkit-text-size-adjust: 100%;
+  background: #ffffff;
+}
+
+html.dark {
+  background: #0b0f1a;
+  color-scheme: dark;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-feature-settings: "cv11", "ss01";
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full px-6 py-3 text-sm font-semibold transition-all duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2;
+  }
+
+  /* Primary — finance blue -> teal, white text */
+  .btn-primary {
+    @apply btn relative overflow-hidden font-semibold text-white shadow-glow;
+    background-image: linear-gradient(120deg, #2e6e9c 0%, #4f93bc 60%, #7cc6e0 100%);
+    background-size: 160% 160%;
+    background-position: 0% 50%;
+  }
+  .btn-primary:hover {
+    background-position: 100% 50%;
+    transform: translateY(-2px);
+  }
+
+  /* Static hairline + soft glow on hover only (no perpetual spin). */
+  .glow-border {
+    position: relative;
+    transition: box-shadow 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .glow-border:hover {
+    box-shadow:
+      0 0 0 1px rgba(46, 110, 156, 0.45),
+      0 18px 50px -16px rgba(46, 110, 156, 0.55);
+  }
+  html.dark .glow-border:hover {
+    box-shadow:
+      0 0 0 1px rgba(61, 123, 255, 0.5),
+      0 18px 50px -16px rgba(61, 123, 255, 0.55);
+  }
+
+  .btn-gold {
+    @apply btn font-semibold text-charcoal shadow-glow-gold hover:-translate-y-0.5;
+    background-image: linear-gradient(120deg, #e8cb8a 0%, #d8b15f 60%, #b88a44 100%);
+  }
+
+  .btn-outline {
+    @apply btn border border-slate-300 bg-white/70 text-charcoal backdrop-blur hover:border-brand-400 hover:bg-white;
+  }
+
+  .btn-secondary {
+    @apply btn border border-slate-200 bg-white text-charcoal shadow-card hover:border-brand-300 hover:bg-brand-50;
+  }
+
+  .btn-ghost {
+    @apply btn text-charcoal hover:bg-slate-100;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 rounded-full border border-brand-200/70 bg-brand-50 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-brand-700;
+  }
+
+  /* legacy "dark" eyebrow now light */
+  .eyebrow-dark {
+    @apply inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.14em] text-bronze;
+  }
+
+  .card {
+    @apply rounded-2xl border border-slate-200/70 bg-white p-7 shadow-card transition-all duration-300;
+  }
+  .card-hover {
+    @apply card hover:-translate-y-1.5 hover:border-brand-200 hover:shadow-soft;
+  }
+
+  /* Light glassmorphism */
+  .glass {
+    @apply rounded-2xl border border-white/70 bg-white/70 shadow-card backdrop-blur-xl;
+  }
+  .glass-hover {
+    @apply glass transition-all duration-300 hover:-translate-y-1.5 hover:shadow-soft;
+  }
+  /* legacy dark panel -> light panel */
+  .panel-dark {
+    @apply rounded-2xl border border-slate-200/70 bg-white shadow-card;
+  }
+
+  /* ---- Dark-mode overrides for the shared component classes ---- */
+  .dark .btn-outline {
+    @apply border-white/15 bg-white/5 text-[#F4F6FB] hover:border-[#3D7BFF] hover:bg-white/10;
+  }
+  .dark .btn-secondary {
+    @apply border-white/10 bg-night-card text-[#F4F6FB] shadow-none hover:border-[#3D7BFF] hover:bg-white/10;
+  }
+  .dark .btn-ghost {
+    @apply text-[#F4F6FB] hover:bg-white/10;
+  }
+  .dark .eyebrow {
+    @apply border-[#3D7BFF]/30 bg-[#3D7BFF]/10 text-[#5B91FF];
+  }
+  .dark .card {
+    @apply border-white/10 bg-night-card shadow-none;
+  }
+  .dark .card-hover:hover {
+    @apply border-[#3D7BFF]/40;
+  }
+  .dark .glass {
+    @apply border-white/10 bg-night-surface/70;
+  }
+  .dark .panel-dark {
+    @apply border-white/10 bg-night-card shadow-none;
+  }
+
+  .ring-glow {
+    box-shadow:
+      0 0 0 1px rgba(46, 110, 156, 0.14),
+      0 26px 60px -30px rgba(46, 110, 156, 0.45);
+  }
+
+  .section {
+    @apply py-20 sm:py-24 lg:py-28;
+  }
+
+  /* One full screen per section, content vertically centered so it never
+     gets cut at the top/bottom between two screens. */
+  .screen-section {
+    @apply relative flex min-h-[calc(100svh-80px)] flex-col justify-center overflow-hidden py-16;
+  }
+
+  .heading-gradient {
+    background-image: linear-gradient(120deg, #1b2430 0%, #2e6e9c 55%, #4f93bc 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+  /* "InfiBooks" wordmark gradient — matches the brand GIF blue */
+  .heading-gradient-light {
+    background-image: linear-gradient(115deg, #2e6e9c 0%, #4f93bc 50%, #7cc6e0 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .link-underline {
+    @apply relative after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-brand-500 after:transition-all hover:after:w-full;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Background grid/dot patterns removed for a clean, uniform white look */
+  .grid-pattern {
+    background-image: none;
+  }
+  .grid-pattern-dark {
+    background-image: none;
+  }
+  .dot-grid {
+    background-image: none;
+  }
+
+  .mask-fade-x {
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+  }
+
+  .text-gradient-gold {
+    background-image: linear-gradient(120deg, #d8b15f, #b88a44);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .light-sweep::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(100deg, transparent 30%, rgba(255, 255, 255, 0.55) 50%, transparent 70%);
+    transform: translateX(-120%);
+    animation: sweep 7s ease-in-out infinite;
+    pointer-events: none;
+  }
+}
+
+::selection {
+  background: rgba(46, 110, 156, 0.2);
+  color: #1b2430;
+}
+html.dark ::selection {
+  background: rgba(61, 123, 255, 0.32);
+  color: #f4f6fb;
+}
+
+/* Hero / page-header gradient flips to the dark canvas in dark mode. */
+html.dark .bg-hero-gradient {
+  background-image: linear-gradient(180deg, #0b0f1a 0%, #0b0f1a 100%);
+}
+
+@keyframes introbar {
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes handwrite {
+  from {
+    clip-path: inset(0 100% -12% 0);
+  }
+  to {
+    clip-path: inset(0 0% -12% 0);
+  }
+}
+.handwrite {
+  animation: handwrite 1.7s cubic-bezier(0.22, 1, 0.36, 1) 0.25s both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .handwrite {
+    animation: none;
+    clip-path: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 11px;
+  height: 11px;
+}
+::-webkit-scrollbar-track {
+  background: #eef4f8;
+}
+::-webkit-scrollbar-thumb {
+  background: #c9d4de;
+  border-radius: 999px;
+  border: 3px solid #eef4f8;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #a9b6c3;
+}
+html.dark ::-webkit-scrollbar-track {
+  background: #0b0f1a;
+}
+html.dark ::-webkit-scrollbar-thumb {
+  background: #2a3450;
+  border: 3px solid #0b0f1a;
+}
+html.dark ::-webkit-scrollbar-thumb:hover {
+  background: #3a4767;
+}
+
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
