@@ -87,7 +87,7 @@ export default function Navbar() {
   return (
     <header className="pointer-events-none fixed inset-x-0 top-0 z-50">
       <nav className="flex h-20 items-center justify-between px-5 sm:px-8 lg:px-12">
-        <Logo className="pointer-events-auto" imgClassName="h-16 w-auto sm:h-[4.5rem]" />
+        <Logo className="pointer-events-auto self-start" imgClassName="h-24 w-auto sm:h-28" />
 
         <div className="pointer-events-auto flex items-center gap-2 sm:gap-3">
           <Link href="/contact#book" className="btn-primary text-[14px] sm:text-[15px]">
