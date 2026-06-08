@@ -44,8 +44,8 @@ export function FadeUp({
     <motion.div
       className={className}
       style={{ transformPerspective: 900 }}
-      initial={{ opacity: 0, y, rotateX: -12, filter: "blur(10px)" }}
-      whileInView={{ opacity: 1, y: 0, rotateX: 0, filter: "blur(0px)" }}
+      initial={{ opacity: 0, y, rotateX: -12 }}
+      whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
       viewport={{ once, margin: "-60px" }}
       transition={{ duration: 0.75, ease: EASE, delay }}
     >
@@ -67,8 +67,8 @@ export function FadeIn({
   return (
     <motion.div
       className={className}
-      initial={{ opacity: 0, filter: "blur(8px)" }}
-      whileInView={{ opacity: 1, filter: "blur(0px)" }}
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.8, ease: EASE, delay }}
     >
@@ -85,8 +85,8 @@ const containerVariants: Variants = {
 };
 
 const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 24, filter: "blur(10px)" },
-  show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.6, ease: EASE } },
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: EASE } },
 };
 
 /** Container that staggers its <StaggerItem> children on scroll. */

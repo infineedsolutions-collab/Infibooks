@@ -107,13 +107,6 @@ export default function RootLayout({
         <ThemeProvider>
         <RegionProvider>
           <Navbar />
-          {/* Top fade-zone: content scrolling up into this strip dissolves into
-              the background as it leaves the viewport, while the rest stays clear.
-              Fades to the page colour (not black) so empty space shows no band. */}
-          <div
-            aria-hidden
-            className="pointer-events-none fixed inset-x-0 top-20 z-40 h-[18vh] bg-gradient-to-b from-white via-white/55 to-transparent dark:from-night-base dark:via-night-base/60"
-          />
           <main>{children}</main>
           <Footer />
           <WhatsAppButton />
