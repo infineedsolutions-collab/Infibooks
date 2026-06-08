@@ -9,8 +9,22 @@ export const site = {
   phone: "+971 50 000 0000",
   phoneHref: "tel:+97150000000",
   whatsapp: "971500000000",
-  address: "Serving clients worldwide - Remote-first",
-  hours: "Mon - Fri: 9:00 AM - 6:00 PM",
+  address: "3rd Floor, I Type 16/3, Tata Kandra Rd, Housing Colony, Adityapur, Jamshedpur, Jharkhand 832109, India",
+  hours: "Mon - Fri: 10:00 AM - 7:00 PM IST",
+  locations: [
+    {
+      label: "Headquarters · India",
+      city: "Jamshedpur, Jharkhand",
+      address: "3rd Floor, I Type 16/3, Tata Kandra Rd, Housing Colony, Adityapur, Jamshedpur, Jharkhand 832109, India",
+      maps: `https://www.google.com/maps?q=${encodeURIComponent("3rd Floor, I Type 16/3, Tata Kandra Rd, Housing Colony, Adityapur, Jamshedpur, Jharkhand 832109")}&output=embed`,
+    },
+    {
+      label: "US Branch · Delaware",
+      city: "Dover, Delaware",
+      address: "8 The Green, Dover, Delaware 19901, USA",
+      maps: `https://www.google.com/maps?q=${encodeURIComponent("8 The Green, Dover, Delaware 19901, USA")}&output=embed`,
+    },
+  ],
   social: {
     linkedin: "https://www.linkedin.com/",
     instagram: "https://www.instagram.com/",

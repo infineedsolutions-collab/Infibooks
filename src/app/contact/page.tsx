@@ -15,7 +15,7 @@ const cards = [
   { icon: "phone", title: "Call us", value: site.phone, href: site.phoneHref },
   { icon: "mail", title: "Email us", value: site.email, href: `mailto:${site.email}` },
   { icon: "whatsapp", title: "WhatsApp", value: "Chat with us", href: `https://wa.me/${site.whatsapp}` },
-  { icon: "pin", title: "Visit us", value: site.address, href: "#map" },
+  { icon: "pin", title: "Visit us", value: "Jamshedpur, IN & Dover, US", href: "#offices" },
 ];
 
 export default function ContactPage() {
@@ -91,9 +91,9 @@ export default function ContactPage() {
                   <Icon name="clock" className="h-5 w-5 text-brand-600 dark:text-[#5B91FF]" />
                   <span>{site.hours}</span>
                 </li>
-                <li className="flex items-center gap-3">
-                  <Icon name="pin" className="h-5 w-5 text-brand-600 dark:text-[#5B91FF]" />
-                  <span>{site.address}</span>
+                <li className="flex items-start gap-3">
+                  <Icon name="globe" className="mt-0.5 h-5 w-5 text-brand-600 dark:text-[#5B91FF]" />
+                  <span>Flexible across US &amp; India time zones - we adjust to your schedule</span>
                 </li>
                 <li className="flex items-center gap-3">
                   <Icon name="phone" className="h-5 w-5 text-brand-600 dark:text-[#5B91FF]" />
@@ -111,15 +111,44 @@ export default function ContactPage() {
               </a>
             </div>
 
-            <div id="map" className="overflow-hidden rounded-2xl border border-slate-100 dark:border-white/10 shadow-card dark:shadow-none">
-              <iframe
-                title="Infibooks office location"
-                src="https://www.google.com/maps?q=our+office&output=embed"
-                className="h-72 w-full border-0"
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
-            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Our offices */}
+      <section id="offices" className="section scroll-mt-24 bg-ivory dark:bg-[#0B0F1A]">
+        <div className="container-x">
+          <div className="mx-auto max-w-2xl text-center">
+            <span className="eyebrow mx-auto">Our Offices</span>
+            <h2 className="mt-4 font-display text-3xl font-extrabold text-charcoal dark:text-[#F4F6FB] sm:text-4xl">
+              Where We Work From
+            </h2>
+            <p className="mt-4 text-lg leading-relaxed text-slate-600 dark:text-[#A6B0C3]">
+              Headquartered in India with a US presence in Delaware - serving founders across time zones.
+            </p>
+          </div>
+          <div className="mx-auto mt-12 grid max-w-5xl gap-8 lg:grid-cols-2">
+            {site.locations.map((loc) => (
+              <div
+                key={loc.label}
+                className="overflow-hidden rounded-2xl border border-slate-200/70 bg-white shadow-card dark:border-white/10 dark:bg-[#161D30] dark:shadow-none"
+              >
+                <iframe
+                  title={loc.label}
+                  src={loc.maps}
+                  className="h-64 w-full border-0"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
+                <div className="p-6">
+                  <span className="inline-flex items-center rounded-full bg-brand-50 px-3 py-1 text-xs font-semibold text-brand-700 dark:bg-[#3D7BFF]/10 dark:text-[#5B91FF]">
+                    {loc.label}
+                  </span>
+                  <h3 className="mt-3 font-display text-lg font-bold text-charcoal dark:text-[#F4F6FB]">{loc.city}</h3>
+                  <p className="mt-1.5 text-sm leading-relaxed text-slate-600 dark:text-[#A6B0C3]">{loc.address}</p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
