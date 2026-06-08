@@ -57,17 +57,6 @@ export default function TeamPage() {
     <>
       {/* Hero + team grid in one clean block */}
       <section className="relative overflow-hidden bg-white dark:bg-[#0B0F1A] pt-[calc(80px+2.5rem)]">
-        {/* animated logo gif running softly behind the team */}
-        <Image
-          src="/logo.png"
-          alt=""
-          aria-hidden
-          width={1000}
-          height={1000}
-          unoptimized
-          priority
-          className="pointer-events-none absolute left-1/2 top-1/2 z-0 w-[clamp(420px,70vw,820px)] max-w-none -translate-x-1/2 -translate-y-1/2 select-none opacity-[0.07]"
-        />
         <div className="container-x relative z-10 text-center">
           <FadeUp>
             {/* eslint-disable-next-line @next/next/no-img-element */}

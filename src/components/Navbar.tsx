@@ -111,12 +111,12 @@ export default function Navbar() {
           : "bg-transparent"
       }`}
     >
-      <nav className="container-x flex h-20 items-center gap-4">
-        <div className="flex flex-1 items-center">
-          <Logo />
+      <nav className="container-x relative flex h-20 items-center justify-between gap-4">
+        <div className="flex shrink-0 items-center">
+          <Logo src="/logo-animation.gif" imgClassName="h-12 w-auto sm:h-14" />
         </div>
 
-        <ul className="hidden items-center gap-1 lg:flex">
+        <ul className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 lg:flex">
           {nav.map((item) => {
             const menu = item.menu ? menus[item.menu] : undefined;
             const active = isActive(item.href) || isMenuActive(menu);
@@ -163,7 +163,7 @@ export default function Navbar() {
           })}
         </ul>
 
-        <div className="flex flex-1 items-center justify-end gap-3">
+        <div className="flex shrink-0 items-center justify-end gap-3">
           <ThemeToggle className="hidden lg:flex" />
           <CountrySelector className="hidden lg:block" />
           <Link href="/contact#book" className="hidden text-[15px] lg:inline-flex btn-primary">
