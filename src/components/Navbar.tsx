@@ -84,9 +84,12 @@ export default function Navbar() {
       return dest !== "/" && (pathname === dest || pathname.startsWith(`${dest}/`));
     });
 
+  const activeMenu = sub ? menus[sub] : null;
+  const activeItem = nav.find((i) => i.menu === sub);
+
   return (
     <header className="pointer-events-none fixed inset-x-0 top-0 z-50">
-      <nav className="flex h-20 items-center justify-between px-5 sm:px-8 lg:px-12">
+      <nav className="relative z-[60] flex h-20 items-center justify-between px-5 sm:px-8 lg:px-12">
         <Logo className="pointer-events-auto self-start" imgClassName="h-24 w-auto sm:h-28" />
 
         <div className="pointer-events-auto flex items-center gap-2 sm:gap-3">
@@ -110,79 +113,88 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Slide-down menu (all screen sizes) */}
+      {/* Mega menu */}
       <div className={open ? "pointer-events-auto" : "pointer-events-none"}>
         <div
-          className={`fixed inset-0 top-20 z-40 bg-charcoal/25 backdrop-blur-sm transition-opacity duration-300 ${
+          className={`fixed inset-0 z-40 bg-charcoal/30 backdrop-blur-sm transition-opacity duration-300 ${
             open ? "opacity-100" : "opacity-0"
           }`}
           onClick={() => setOpen(false)}
         />
         <div
-          className={`fixed inset-x-0 top-20 z-40 max-h-[calc(100vh-80px)] origin-top overflow-y-auto border-b border-slate-200 bg-white shadow-soft transition-all duration-300 dark:border-white/10 dark:bg-night-surface ${
-            open ? "translate-y-0 opacity-100" : "-translate-y-4 opacity-0"
+          className={`fixed inset-x-0 top-0 z-40 max-h-[100svh] origin-top overflow-y-auto border-b border-slate-200 bg-white pb-8 pt-24 shadow-soft transition-all duration-300 dark:border-white/10 dark:bg-night-surface ${
+            open ? "translate-y-0 opacity-100" : "pointer-events-none -translate-y-4 opacity-0"
           }`}
         >
-          <div className="container-x py-5">
-            <ul className="mx-auto flex max-w-xl flex-col gap-1">
-              {nav.map((item) => {
-                const menu = item.menu ? menus[item.menu] : undefined;
-                const subOpen = sub === item.menu;
-                const active = isActive(item.href) || isMenuActive(menu);
-                return (
-                  <li key={item.href}>
-                    <div className="flex items-center">
+          <div className="container-x">
+            <div className="grid gap-6 lg:grid-cols-[300px_1fr]">
+              <ul className="flex flex-col gap-1" onMouseLeave={() => setSub(null)}>
+                {nav.map((item) => {
+                  const menu = item.menu ? menus[item.menu] : undefined;
+                  const active =
+                    isActive(item.href) || isMenuActive(menu) || (!!menu && sub === item.menu);
+                  return (
+                    <li key={item.href} onMouseEnter={() => setSub(item.menu ?? null)}>
                       <Link
                         href={item.href}
-                        className={`flex-1 rounded-xl px-4 py-3 text-base font-semibold transition active:scale-[0.98] ${
+                        className={`flex items-center justify-between gap-2 rounded-xl px-4 py-3 text-base font-semibold transition active:scale-[0.98] ${
                           active
                             ? "bg-brand-gradient text-white shadow-[0_6px_16px_-6px_rgba(46,110,156,0.6)]"
                             : "text-slate-700 hover:bg-slate-50 dark:text-[#A6B0C3] dark:hover:bg-white/5"
                         }`}
                       >
                         {item.label}
-                      </Link>
-                      {menu && (
-                        <button
-                          type="button"
-                          onClick={() => setSub(subOpen ? null : item.menu!)}
-                          aria-label={`Toggle ${item.label} menu`}
-                          className="flex h-10 w-10 items-center justify-center rounded-xl text-slate-500 dark:text-[#A6B0C3]"
-                        >
-                          <svg viewBox="0 0 24 24" className={`h-4 w-4 transition-transform ${subOpen ? "rotate-180" : ""}`} fill="none" stroke="currentColor" strokeWidth={2.2} aria-hidden>
-                            <path d="m6 9 6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+                        {menu && (
+                          <svg viewBox="0 0 24 24" className="h-4 w-4 opacity-70" fill="none" stroke="currentColor" strokeWidth={2.2} aria-hidden>
+                            <path d="m9 6 6 6-6 6" strokeLinecap="round" strokeLinejoin="round" />
                           </svg>
-                        </button>
-                      )}
-                    </div>
-                    {menu && subOpen && (
-                      <div className="mb-1 ml-3 grid gap-0.5 border-l border-slate-200 pl-3 dark:border-white/10 sm:grid-cols-2">
-                        {menu.items.map((it) => (
-                          <Link
-                            key={it.href}
-                            href={it.href}
-                            className="flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-slate-600 hover:bg-slate-50 hover:text-brand-700 dark:text-[#A6B0C3] dark:hover:bg-white/5 dark:hover:text-accent-hover"
-                          >
-                            <Icon name={it.icon} className="h-4 w-4 text-brand-500" />
-                            {it.label}
-                          </Link>
-                        ))}
-                      </div>
-                    )}
-                  </li>
-                );
-              })}
-            </ul>
+                        )}
+                      </Link>
+                    </li>
+                  );
+                })}
+                <li className="mt-3 flex items-center gap-3 border-t border-slate-200 px-2 pt-4 dark:border-white/10">
+                  <ThemeToggle />
+                  <CountrySelector />
+                </li>
+              </ul>
 
-            <div className="mx-auto mt-5 flex max-w-xl items-center justify-between gap-3 border-t border-slate-200 pt-5 dark:border-white/10">
-              <div className="flex items-center gap-3">
-                <ThemeToggle />
-                <CountrySelector />
+              <div className="hidden rounded-2xl border border-slate-200/70 bg-slate-50/70 p-5 dark:border-white/10 dark:bg-white/5 lg:block">
+                {activeMenu ? (
+                  <>
+                    <p className="px-1 pb-3 text-xs font-semibold uppercase tracking-[0.16em] text-slate-400 dark:text-[#6B7589]">
+                      {activeItem?.label}
+                    </p>
+                    <div className="grid gap-2 sm:grid-cols-2">
+                      {activeMenu.items.map((it) => (
+                        <Link
+                          key={it.href}
+                          href={it.href}
+                          className="flex items-center gap-3 rounded-xl border border-slate-200/70 bg-white p-3 shadow-card transition-all hover:-translate-y-0.5 hover:border-brand-300 hover:shadow-soft dark:border-white/10 dark:bg-[#161D30] dark:shadow-none"
+                        >
+                          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600 dark:bg-accent/10 dark:text-accent-hover">
+                            <Icon name={it.icon} className="h-4 w-4" />
+                          </span>
+                          <span className="text-sm font-semibold text-charcoal dark:text-[#F4F6FB]">{it.label}</span>
+                        </Link>
+                      ))}
+                    </div>
+                  </>
+                ) : (
+                  <div className="flex h-full flex-col justify-center p-4">
+                    <h3 className="font-display text-2xl font-extrabold text-charcoal dark:text-[#F4F6FB]">
+                      Finance that <span className="heading-gradient-light">scales with you</span>
+                    </h3>
+                    <p className="mt-2 max-w-sm text-sm leading-relaxed text-slate-600 dark:text-[#A6B0C3]">
+                      Hover a section to explore - or book a free strategy call and we&apos;ll map your finance function.
+                    </p>
+                    <Link href="/contact#book" className="btn-primary mt-5 w-fit">
+                      Book a Call
+                      <Icon name="arrow" className="h-4 w-4" />
+                    </Link>
+                  </div>
+                )}
               </div>
-              <Link href="/contact#book" className="btn-primary">
-                Book a Call
-                <Icon name="arrow" className="h-4 w-4" />
-              </Link>
             </div>
           </div>
         </div>
